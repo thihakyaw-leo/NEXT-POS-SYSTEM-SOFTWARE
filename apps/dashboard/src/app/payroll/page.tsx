@@ -20,13 +20,14 @@ interface PayrollResult {
 export default function PayrollPage() {
   const [payrollData, setPayrollData] = useState<PayrollResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedPayPeriod, setSelectedPayPeriod] = useState("2024-04");
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [viewingPayslip, setViewingPayslip] = useState<PayrollResult | null>(null);
 
   const handleRunPayroll = async () => {
     setIsLoading(true);
     // Hardcoded branch-1 for demo
-    const data = await calculatePayrollForMonth("branch-1", 4, 2024);
+    const data = await calculatePayrollForMonth("branch-1", selectedMonth, selectedYear);
     setPayrollData(data as any); // Cast as any if external types are still syncing
     setIsLoading(false);
   };
@@ -46,13 +47,28 @@ export default function PayrollPage() {
         </div>
         
         <div className="flex gap-4">
-          <input 
-            type="month" 
-            value={selectedPayPeriod}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSelectedPayPeriod(e.target.value)}
-            className="glass-panel px-4 py-3 rounded-xl focus:border-cyan-500 outline-none"
-            title="Select Pay Period"
-          />
+          <div className="flex bg-slate-900/50 border border-white/10 rounded-xl overflow-hidden">
+            <select 
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(Number(e.target.value))}
+              className="bg-transparent px-4 py-3 outline-none border-r border-white/10 focus:text-cyan-400"
+              title="Select Month"
+            >
+              {[...Array(12)].map((_, i) => (
+                <option key={i+1} value={i+1} className="bg-slate-900">{new Date(0, i).toLocaleString('en-US', { month: 'long' })}</option>
+              ))}
+            </select>
+            <select 
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(Number(e.target.value))}
+              className="bg-transparent px-4 py-3 outline-none focus:text-cyan-400"
+              title="Select Year"
+            >
+              {[2023, 2024, 2025, 2026].map(y => (
+                <option key={y} value={y} className="bg-slate-900">{y}</option>
+              ))}
+            </select>
+          </div>
           <button 
             onClick={handleRunPayroll}
             disabled={isLoading}
@@ -118,7 +134,7 @@ export default function PayrollPage() {
             <div className="flex justify-between items-start">
                <div>
                   <h3 className="text-3xl font-black text-cyan-400">PAYSLIP</h3>
-                  <p className="text-slate-400 uppercase text-xs font-bold tracking-widest mt-1">Period: {selectedPayPeriod}</p>
+                  <p className="text-slate-400 uppercase text-xs font-bold tracking-widest mt-1">Period: {new Date(0, selectedMonth - 1).toLocaleString('en-US', { month: 'long' })} {selectedYear}</p>
                </div>
                <button onClick={() => setViewingPayslip(null)} className="text-slate-500 hover:text-white">✕</button>
             </div>
