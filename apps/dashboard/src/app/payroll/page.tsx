@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { calculatePayrollForMonth, approvePayrollRun } from "@/lib/payroll-actions";
 

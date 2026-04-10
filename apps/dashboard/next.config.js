@@ -11,6 +11,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Allow importing from local workspace packages
+  transpilePackages: ["@next-hr/database", "@next-hr/auth-database"],
 };
 
 module.exports = nextConfig;
