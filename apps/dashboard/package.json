@@ -15,9 +15,7 @@
     "next-auth": "^4.24.7",
     "lucide-react": "^0.363.0",
     "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.2",
-    "@next-hr/database": "file:../../packages/database",
-    "@next-hr/auth-database": "file:../../packages/auth-database"
+    "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { registerEmployee, getEmployees } from "@/lib/employee-actions";
 
 const PRODUCT_TIERS = [
   { id: "pos-lite", name: "POS Lite" },
@@ -10,20 +11,44 @@ const PRODUCT_TIERS = [
 ];
 
 export default function EmployeesPage() {
+  const [employees, setEmployees] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState("staff");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    branchId: "",
+    branchId: "branch-1",
     productTier: "",
+    baseSalary: 300000,
   });
+
+  useEffect(() => {
+    loadEmployees();
+  }, []);
+
+  const loadEmployees = async () => {
+    try {
+      const data = await getEmployees();
+      setEmployees(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitting:", { ...formData, role });
-    // TODO: Connect to api-worker
-    setIsModalOpen(false);
+    setIsLoading(true);
+    try {
+      await registerEmployee({ ...formData, role });
+      await loadEmployees();
+      setIsModalOpen(false);
+      setFormData({ name: "", email: "", branchId: "branch-1", productTier: "", baseSalary: 300000 });
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,12 +77,26 @@ export default function EmployeesPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
-            <tr className="hover:bg-white/5 transition-colors">
-              <td className="px-6 py-4 font-medium">System Admin</td>
-              <td className="px-6 py-4"><span className="px-3 py-1 bg-amber-500/20 text-amber-500 rounded-full text-xs font-bold border border-amber-500/30">ADMIN</span></td>
-              <td className="px-6 py-4 text-slate-400">Headquarters</td>
-              <td className="px-6 py-4 text-cyan-400">Online</td>
-            </tr>
+            {employees.length > 0 ? employees.map((emp) => (
+              <tr key={emp.id} className="hover:bg-white/5 transition-colors">
+                <td className="px-6 py-4 font-medium">{emp.name}</td>
+                <td className="px-6 py-4">
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold border ${
+                    emp.role === 'admin' ? 'bg-amber-500/20 text-amber-500 border-amber-500/30' : 
+                    emp.role === 'owner' ? 'bg-purple-500/20 text-purple-500 border-purple-500/30' :
+                    'bg-cyan-500/20 text-cyan-500 border-cyan-500/30'
+                  }`}>
+                    {emp.role?.toUpperCase()}
+                  </span>
+                </td>
+                <td className="px-6 py-4 text-slate-400">{emp.branchId || emp.productTier || '-'}</td>
+                <td className="px-6 py-4 text-cyan-400 lowercase">{emp.status || 'active'}</td>
+              </tr>
+            )) : (
+              <tr>
+                <td colSpan={4} className="px-6 py-12 text-center text-slate-500 italic">No records found. Initialize your first node.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -71,29 +110,40 @@ export default function EmployeesPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Full Name</label>
-                <input 
-                  type="text" required
-                  className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500"
-                  placeholder="Enter name..."
-                  value={formData.name}
-                  onChange={e => setFormData({...formData, name: e.target.value})}
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Role</label>
-                <select 
-                  className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500"
-                  value={role}
-                  onChange={e => setRole(e.target.value)}
-                  title="Select employee role"
-                >
-                  <option value="staff">Staff</option>
-                  <option value="manager">Manager</option>
-                  <option value="owner">Owner</option>
-                </select>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-2">
+                  <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Full Identity Name</label>
+                  <input 
+                    type="text" required
+                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500"
+                    placeholder="Enter name..."
+                    value={formData.name}
+                    onChange={e => setFormData({...formData, name: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Role Allocation</label>
+                  <select 
+                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500"
+                    value={role}
+                    onChange={e => setRole(e.target.value)}
+                    title="Select employee role"
+                  >
+                    <option value="staff">Staff</option>
+                    <option value="manager">Manager</option>
+                    <option value="owner">Owner</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Base Salary (Ks)</label>
+                  <input 
+                    type="number" required
+                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500"
+                    value={formData.baseSalary}
+                    onChange={e => setFormData({...formData, baseSalary: Number(e.target.value)})}
+                    title="Base Salary"
+                  />
+                </div>
               </div>
 
               {role === 'owner' ? (
