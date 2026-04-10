@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@next-hr/database": ["../../packages/database/schema.ts"]
     }
   },
   "include": [
