@@ -5,4 +5,4 @@ compatibility_date = "2024-04-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "next-hr-db"
-database_id = "your-database-id-here"
+database_id = "622b80a5-bc1d-49fc-95fd-a68e09de95f8"
