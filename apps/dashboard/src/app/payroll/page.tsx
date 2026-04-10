@@ -49,8 +49,9 @@ export default function PayrollPage() {
           <input 
             type="month" 
             value={selectedPayPeriod}
-            onChange={(e) => setSelectedPayPeriod(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSelectedPayPeriod(e.target.value)}
             className="glass-panel px-4 py-3 rounded-xl focus:border-cyan-500 outline-none"
+            title="Select Pay Period"
           />
           <button 
             onClick={handleRunPayroll}

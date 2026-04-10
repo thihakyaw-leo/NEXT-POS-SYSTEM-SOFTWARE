@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext"],
+    "types": ["@cloudflare/workers-types"],
+    "paths": {
+      "@next-hr/auth-database": ["../../packages/auth-database/schema.ts"]
+    }
+  }
+}
