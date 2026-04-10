@@ -1,0 +1,13 @@
+{
+  "name": "next-hr-system",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "deploy": "wrangler pages deploy apps/dashboard/.next"
+  }
+}

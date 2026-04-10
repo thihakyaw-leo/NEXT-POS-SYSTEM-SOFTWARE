@@ -1,0 +1,8 @@
+{
+  "name": "@next-hr/database",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "drizzle-orm": "^0.30.1"
+  }
+}
