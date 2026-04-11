@@ -8,4 +8,4 @@ JWT_SECRET = "your-next-auth-secret-here"
 [[d1_databases]]
 binding = "DB"
 database_name = "next-hr-db"
-database_id = "622b80a5-bc1d-49fc-95fd-a68e09de95f8"
+database_id = "4fcedbe5-abeb-48d6-899f-617d47217b0a"
