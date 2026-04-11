@@ -12,7 +12,7 @@
   "dependencies": {
     "@next-hr/database": "file:../../packages/database",
     "bcryptjs": "^3.0.3",
-    "drizzle-orm": "^0.30.1",
+    "drizzle-orm": "^0.45.2",
     "hono": "^4.0.0"
   },
   "devDependencies": {

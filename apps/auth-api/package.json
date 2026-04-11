@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "hono": "^4.0.0",
-    "drizzle-orm": "^0.30.1",
+    "drizzle-orm": "^0.45.2",
     "@next-hr/auth-database": "file:../../packages/auth-database",
     "jose": "^5.2.2"
   },
