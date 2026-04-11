@@ -11,5 +11,4 @@ JWT_SECRET = "leosmitt-secret"
 [[d1_databases]]
 binding = "AUTH_DB"
 database_name = "next-hr-auth-db"
-# Replace with your real D1 UUID from `wrangler d1 create` before production deploy
-database_id = "00000000-0000-4000-8000-000000000001"
+database_id = "bee6ef0d-2909-4982-b456-e53d0bebb5d7"
