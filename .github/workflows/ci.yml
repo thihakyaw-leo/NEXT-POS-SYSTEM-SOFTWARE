@@ -33,7 +33,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       uses: cloudflare/wrangler-action@v4
       with:
-        apiToken: ${{ secrets.CLOUDFLARE_DEPLOY }}
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         command: pages deploy apps/dashboard/.next --project-name=next-hr-dashboard
 
@@ -41,7 +41,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       uses: cloudflare/wrangler-action@v4
       with:
-        apiToken: ${{ secrets.CLOUDFLARE_DEPLOY }}
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         workingDirectory: 'apps/api-worker'
 
@@ -49,6 +49,6 @@ jobs:
       if: github.ref == 'refs/heads/main'
       uses: cloudflare/wrangler-action@v4
       with:
-        apiToken: ${{ secrets.CLOUDFLARE_DEPLOY }}
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         workingDirectory: 'apps/auth-api'
