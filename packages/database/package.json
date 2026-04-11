@@ -2,7 +2,16 @@
   "name": "@next-hr/database",
   "version": "0.1.0",
   "private": true,
+  "main": "schema.ts",
   "dependencies": {
     "drizzle-orm": "^0.30.1"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.20.14",
+    "tsx": "^4.7.1"
+  },
+  "scripts": {
+    "db:generate": "drizzle-kit generate:sqlite",
+    "db:init:local": "node ../../apps/api-worker/scripts/db-init-local.cjs"
   }
 }

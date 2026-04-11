@@ -1,13 +1,30 @@
 {
   "name": "next-hr-system",
+  "version": "0.1.0",
   "private": true,
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspaces --if-present",
+    "dev": "concurrently -n api,auth,portal -c cyan,magenta,green \"npm run dev -w api-worker\" \"npm run dev -w auth-api\" \"npm run dev -w hr-portal\"",
+    "dev:api": "npm run dev -w api-worker",
+    "dev:auth": "npm run dev -w auth-api",
+    "dev:portal": "npm run dev -w hr-portal",
     "build": "npm run build --workspaces --if-present",
-    "deploy": "wrangler pages deploy apps/dashboard/.next"
+    "db:init:local": "npm run db:init:local -w api-worker",
+    "db:reset:local": "npm run db:reset:local -w api-worker",
+    "db:fresh:local": "npm run db:fresh:local -w api-worker",
+    "deploy": "npm run build -w hr-portal && wrangler pages deploy apps/hr-portal/.svelte-kit/cloudflare"
+  },
+  "overrides": {
+    "svelte": "^5.0.0",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "concurrently": "^9.1.2",
+    "wrangler": "^3.114.0"
   }
 }

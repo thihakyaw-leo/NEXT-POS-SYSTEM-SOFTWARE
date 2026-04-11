@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans:
+    "Inter",
+    "Noto Sans Myanmar",
+    "Myanmar Text",
+    "Padauk",
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  --color-primary: #0f172a;
+  --color-accent: var(--color-brand-accent, #0ea5e9);
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-surface: #ffffff;
+  --color-background: #f8fafc;
+}
+
+:root {
+  color-scheme: light;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dark {
+  color-scheme: dark;
+  --color-primary: #f1f5f9;
+  --color-background: #020617;
+  --color-surface: #0f172a;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+}
+
+/* Myanmar script: prefer Noto / system Myanmar fonts and comfortable line height */
+html[lang="my"],
+html.locale-my {
+  font-family:
+    "Noto Sans Myanmar",
+    "Myanmar Text",
+    "Padauk",
+    "Inter",
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+
+html[lang="my"] body,
+html.locale-my body {
+  line-height: 1.65;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+/* Glassmorphism Logic for Svelte components */
+.glass-surface {
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-surface {
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}

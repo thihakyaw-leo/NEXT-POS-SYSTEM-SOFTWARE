@@ -1,0 +1,52 @@
+{
+  "common": {
+    "dashboard": "Dashboard",
+    "employees": "Employees",
+    "payroll": "Payroll",
+    "attendance": "Attendance",
+    "recruitment": "Recruitment",
+    "performance": "Performance",
+    "selfservice": "Self-Service",
+    "learning": "Learning & development",
+    "analytics": "Analytics",
+    "admin": "Administration",
+    "settings": "Settings",
+    "logout": "Log out",
+    "welcome": "Welcome back",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "header": {
+    "search_placeholder": "Search employees, payroll, reports…",
+    "theme_light": "Light theme",
+    "theme_dark": "Dark theme",
+    "theme_system": "Match system",
+    "language": "Language",
+    "role_admin": "Administrator",
+    "role_sub": "Supervisor"
+  },
+  "sidebar": {
+    "terminate_session": "Sign out",
+    "collapse": "Collapse",
+    "expand": "Expand menu"
+  },
+  "login": {
+    "title": "Secure access",
+    "subtitle": "NEXT HR enterprise workforce system",
+    "username": "Username",
+    "password": "Password",
+    "username_placeholder": "Enter your username",
+    "password_placeholder": "••••••••",
+    "submit": "Sign in",
+    "submit_loading": "Signing in…",
+    "footer": "Authorized personnel only. Access is monitored and logged.",
+    "error_auth": "Authentication failed",
+    "error_network": "Cannot reach the server. Start the API worker and check your connection."
+  },
+  "dashboard": {
+    "total_employees": "Total employees",
+    "active_now": "Active now",
+    "system_sync": "System synchronized"
+  }
+}

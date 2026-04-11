@@ -4,16 +4,21 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "db:init:local": "node scripts/db-init-local.cjs",
+    "db:reset:local": "node scripts/reset-local-d1.cjs",
+    "db:fresh:local": "npm run db:reset:local && node scripts/db-init-local.cjs"
   },
   "dependencies": {
-    "hono": "^4.0.0",
+    "@next-hr/database": "file:../../packages/database",
+    "bcryptjs": "^3.0.3",
     "drizzle-orm": "^0.30.1",
-    "@next-hr/database": "file:../../packages/database"
+    "hono": "^4.0.0"
   },
   "devDependencies": {
-    "wrangler": "^3.0.0",
+    "@cloudflare/workers-types": "^4.20240405.0",
+    "@types/bcryptjs": "^2.4.6",
     "typescript": "^5.0.0",
-    "@cloudflare/workers-types": "^4.20240405.0"
+    "wrangler": "^3.0.0"
   }
 }
