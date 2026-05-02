@@ -7,13 +7,13 @@
     "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "hono": "^4.0.0",
-    "drizzle-orm": "^0.30.1",
+    "hono": "^4.12.16",
+    "drizzle-orm": "^0.45.2",
     "@next-hr/auth-database": "file:../../packages/auth-database",
     "jose": "^5.2.2"
   },
   "devDependencies": {
-    "wrangler": "^3.0.0",
+    "wrangler": "^4.87.0",
     "typescript": "^5.0.0",
     "@cloudflare/workers-types": "^4.20240405.0"
   }
